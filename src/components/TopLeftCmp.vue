@@ -3,7 +3,7 @@
 <!--        蜜罐访问量展示：包括总请求量 上报成功量 上报失败量-->
         <div class="sp-count">
             <dv-border-box5>
-                <div class="totle-value"><span>9999</span>次</div>
+                <div class="totle-value"><span>{{this.attackCount}}</span>次</div>
                 <div class="sub-value"><span>成功</span>9000 次</div>
                 <div class="sub-value"><span>失败</span>999 次</div>
             </dv-border-box5>
@@ -30,7 +30,34 @@
 
 <script>
     export default {
-        name: "TopLeftCmp"
+        name: "TopLeftCmp",
+        data() {
+            return {
+                attackCount: 0,
+                ws: '',
+            }
+        },
+        mounted() {
+            this.ws = new WebSocket('ws://127.0.0.1:9000/ws');
+            // 连接打开时触发
+            this.ws.onopen = () => {
+                console.log("已建立连接");
+                this.ws.send("getAttackCount");
+
+            };
+            // 接收到消息时触发
+            this.ws.onmessage = (evt) => {
+                console.log(evt)
+                this.attackCount = evt.data
+            };
+            this.ws.onclose = () => {
+                console.log('连接已断开，请检查网络情况')
+            }
+        },
+        // 关闭连接
+        beforeDestroy() {
+            this.ws.close()
+        },
     }
 </script>
 

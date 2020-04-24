@@ -56,7 +56,33 @@
             BottomRight,
         },
         data () {
-            return {}
+            return {
+                a: this.send
+            }
+        },
+        methods: {
+        },
+        mounted() {
+            this.ws = new WebSocket('ws://127.0.0.1:9000/ping');
+            // 连接打开时触发
+            this.ws.onopen = () => {
+                console.log("已建立连接");
+                this.ws.send("ping");
+
+            };
+            // 接收到消息时触发
+            this.ws.onmessage = (evt) => {
+                if (evt.data === "pong") {
+                    console.log("连接存活")
+                }
+            };
+            this.ws.onclose = () => {
+                console.log('连接已断开，请检查网络情况')
+            }
+        },
+        // 关闭连接
+        beforeDestroy() {
+            this.ws.close()
         }
     }
 </script>
