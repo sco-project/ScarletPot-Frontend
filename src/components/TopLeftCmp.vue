@@ -3,26 +3,26 @@
 <!--        蜜罐访问量展示：包括总请求量 上报成功量 上报失败量-->
         <div class="sp-count">
             <dv-border-box5>
-                <div class="totle-value"><span>{{this.attackCount}}</span>次</div>
-                <div class="sub-value"><span>成功</span>9000 次</div>
-                <div class="sub-value"><span>失败</span>999 次</div>
+                <div class="totle-value"><span>{{this.reportCount}}</span>次</div>
+                <div class="sub-value"><span>成功</span>{{this.successReport}} 次</div>
+                <div class="sub-value"><span>失败</span>{{this.errCount}} 次</div>
             </dv-border-box5>
 <!--        蜜罐攻击情况展示：日均攻击数量 总攻击数 有效攻击数-->
             <div class="sp-text">
-                蜜罐攻击上报量
+                蜜罐攻击统计
                 <dv-decoration3 style="width: 200px;height: 20px;"></dv-decoration3>
             </div>
         </div>
 
         <div class="sp-average">
             <div class="sp-text">
-                蜜罐攻击统计
+                蜜罐上报情况
                 <dv-decoration3 style="width: 200px;height: 20px;"></dv-decoration3>
             </div>
             <dv-border-box5 :reverse="true">
-                    <div class="totle-value"><span>999</span>次/日</div>
-                    <div class="sub-value"><span>有效攻击</span>9999 次</div>
-                    <div class="sub-value"><span>总攻击</span>100001 次</div>
+                    <div class="totle-value"><span>{{this.dayCount}}</span>/日</div>
+                    <div class="sub-value"><span>有效攻击</span>{{this.validCount}} 次</div>
+                    <div class="sub-value"><span>无效攻击</span>{{this.invalidCount}} 次</div>
             </dv-border-box5>
         </div>
     </div>
@@ -33,7 +33,12 @@
         name: "TopLeftCmp",
         data() {
             return {
-                attackCount: 0,
+                reportCount: 0,
+                successReport:0,
+                errCount: 0,
+                validCount : 0,
+                invalidCount: 0,
+                dayCount: 0,
                 ws: '',
             }
         },
@@ -42,13 +47,19 @@
             // 连接打开时触发
             this.ws.onopen = () => {
                 console.log("已建立连接");
-                this.ws.send("getAttackCount");
-
             };
+
             // 接收到消息时触发
             this.ws.onmessage = (evt) => {
-                console.log(evt)
-                this.attackCount = evt.data
+                var res = JSON.parse(evt.data);
+                console.log(res);
+                this.reportCount = res.data.reportCount;
+                this.errCount = res.data.errCount;
+                this.successReport = this.reportCount-this.errCount;
+                this.validCount = res.data.validCount;
+                this.invalidCount  = res.data.invalidCount;
+                this.dayCount = res.data.dayCount;
+
             };
             this.ws.onclose = () => {
                 console.log('连接已断开，请检查网络情况')
@@ -104,13 +115,13 @@
 
         .totle-value {
             font-weight: bold;
-            font-size: 30px;
-
+            font-size: 26px;
             span {
-                font-size: 50px;
+                font-size: 40px;
                 color: #00c0ff;
-                margin-right: 15px;
+                margin-right: 10px;
             }
+            margin-left: 15px;
         }
 
         .sub-value {
