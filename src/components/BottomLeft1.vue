@@ -11,47 +11,64 @@
         name: "BottomLeft1",
         data() {
             return {
+                // ssh: 0,
+                // mysql: 0,
+                // proxyCount: 0,
+                // web: 0,
+                // redis: 0,
+                // telnet: 0,
+                // memcache:0,
+                // ftp: 0,
+
                 config:{
                     data : [
-                        {
-                            name: 'SSH',
-                            value: 55
-                        },
-                        {
-                            name: 'MySQL',
-                            value: 120
-                        },
-                        {
-                            name: 'Proxy',
-                            value: 78
-                        },
-                        {
-                            name: 'Web',
-                            value: 66
-                        },
-                        {
-                            name: 'Redis',
-                            value: 80
-                        },
-                        {
-                            name: 'Telnet',
-                            value: 45
-                        },
-                        {
-                            name: "MemCache",
-                            value: 100
-                        },
-                        {
-                            name: "FTP",
-                            value: 100
-                        },
-                        {
-                            name: "FTP",
-                            value: 100
-                        },
+                        // {
+                        //     name: 'SSH',
+                        //     value: this.ssh
+                        // },
+                        // {
+                        //     name: 'MySQL',
+                        //     value: this.mysql
+                        // },
+                        // {
+                        //     name: 'Proxy',
+                        //     value: this.proxyCount
+                        // },
+                        // {
+                        //     name: 'Web',
+                        //     value: this.web
+                        // },
+                        // {
+                        //     name: 'Redis',
+                        //     value: this.redis
+                        // },
+                        // {
+                        //     name: 'Telnet',
+                        //     value: this.telnet
+                        // },
+                        // {
+                        //     name: "MemCache",
+                        //     value: this.memcache
+                        // },
+                        // {
+                        //     name: "FTP",
+                        //     value: this.ftp
+                        // },
+                        // {
+                        //     name: "FTP",
+                        //     value: this.ftp
+                        // },
                     ]
                 }
             }
+        },
+        mounted() {
+            // this.ws.onmessage = (evt) => {
+                // var res = JSON.parse(evt.data);
+                // console.log(res);
+                // this.proxy = res.service.proxy;
+                // console.log(this.config.data[0].value)
+            // };
         }
     }
 </script>

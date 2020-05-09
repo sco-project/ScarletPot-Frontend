@@ -2,23 +2,19 @@ import Vue from 'vue'
 import App from './App.vue'
 import dataV from '@jiaminghi/data-view'
 import router from './router.js';
-
-import AmapVue from '@amap/amap-vue'
-AmapVue.config.version = '1.4.15' // 默认1.4.15
-AmapVue.config.key = '477283ba61ba3df425fa4e96969a8be5';
-AmapVue.config.plugins = [
-  'AMap.ToolBar',
-  // 在此配置需要预加载的插件，如果不配置，则会在调用的时候再自动加载
-]
-Vue.use(AmapVue);
-
+// import AmapVue from '@amap/amap-vue'
+// import ReconnectingWebSocket from 'reconnecting-websocket';
 import echarts from 'echarts'
-Vue.prototype.$echarts = echarts
-
-Vue.use(router);
-
-Vue.config.productionTip = false;
+// import VueX from 'vuex'
+// Vue.use(AmapVue);
+// Vue.use(ReconnectingWebSocket);
 Vue.use(dataV);
+Vue.use(router);
+// Vue.use(VueX);
+Vue.prototype.$echarts = echarts;
+// websocket 断线重连
+// Vue.prototype.ws = new ReconnectingWebSocket('ws://localhost:9000/ws');
+Vue.config.productionTip = false;
 
 new Vue({
   el: '#app',

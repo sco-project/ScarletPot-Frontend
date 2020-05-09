@@ -29,46 +29,55 @@
 </template>
 
 <script>
+    import websocketController from "../store/controller";
+
     export default {
         name: "TopLeftCmp",
         data() {
             return {
                 reportCount: 0,
-                successReport:0,
+                successReport: 0,
                 errCount: 0,
-                validCount : 0,
+                validCount: 0,
                 invalidCount: 0,
                 dayCount: 0,
-                ws: '',
             }
         },
-        mounted() {
-            this.ws = new WebSocket('ws://127.0.0.1:9000/ws');
-            // 连接打开时触发
-            this.ws.onopen = () => {
-                console.log("已建立连接");
-            };
+         mounted() {
+            this.getRes()
+            //     this.ws.onopen = () => {
+            //         console.log("已建立连接");
+            //     };
+            //
+            //     // TODO: 暂存一份数据到localStorage中 使用VueX实现所有组件数据的统一管理
+            //
+            //     // var th = this;
+            //     this.ws.onmessage = (evt) => {
+            //         var res = JSON.parse(evt.data);
+            //         console.log(res);
+            //         // th.reportCount = 1222;
+            //         this.reportCount = res.data.reportCount;
+            //         this.errCount = res.data.errCount;
+            //         this.successReport = this.reportCount-this.errCount;
+            //         this.validCount = res.data.validCount;
+            //         this.invalidCount  = res.data.invalidCount;
+            //         this.dayCount = res.data.dayCount;
+            //     };
+            //     this.ws.onclose = () => {
+            //         console.log('连接已断开，请检查网络情况')
+            //     }
+            // },
+            // // 关闭连接
+            // beforeDestroy() {
+            //     this.ws.close()
+            // },
+        },
 
-            // 接收到消息时触发
-            this.ws.onmessage = (evt) => {
-                var res = JSON.parse(evt.data);
-                console.log(res);
-                this.reportCount = res.data.reportCount;
-                this.errCount = res.data.errCount;
-                this.successReport = this.reportCount-this.errCount;
-                this.validCount = res.data.validCount;
-                this.invalidCount  = res.data.invalidCount;
-                this.dayCount = res.data.dayCount;
-
-            };
-            this.ws.onclose = () => {
-                console.log('连接已断开，请检查网络情况')
+        methods:{
+            getRes() {
+                websocketController()
             }
-        },
-        // 关闭连接
-        beforeDestroy() {
-            this.ws.close()
-        },
+        }
     }
 </script>
 
