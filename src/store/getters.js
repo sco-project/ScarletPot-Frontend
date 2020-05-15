@@ -1,3 +1,5 @@
 const getters = {
-    report: state => state.report
+    report: state => state.data
 };
+
+export default getters

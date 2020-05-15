@@ -3,9 +3,9 @@
 <!--        蜜罐访问量展示：包括总请求量 上报成功量 上报失败量-->
         <div class="sp-count">
             <dv-border-box5>
-                <div class="totle-value"><span>{{this.reportCount}}</span>次</div>
-                <div class="sub-value"><span>成功</span>{{this.successReport}} 次</div>
-                <div class="sub-value"><span>失败</span>{{this.errCount}} 次</div>
+                <div class="totle-value"><span>{{this.$store.getters.getReportCount.reportCount}}</span>次</div>
+                <div class="sub-value"><span>成功</span>{{this.$store.getters.getReportCount.reportCount - this.$store.getters.getReportCount.errCount }} 次</div>
+                <div class="sub-value"><span>失败</span>{{this.$store.getters.getReportCount.errCount}} 次</div>
             </dv-border-box5>
 <!--        蜜罐攻击情况展示：日均攻击数量 总攻击数 有效攻击数-->
             <div class="sp-text">
@@ -20,31 +20,29 @@
                 <dv-decoration3 style="width: 200px;height: 20px;"></dv-decoration3>
             </div>
             <dv-border-box5 :reverse="true">
-                    <div class="totle-value"><span>{{this.dayCount}}</span>/日</div>
-                    <div class="sub-value"><span>有效攻击</span>{{this.validCount}} 次</div>
-                    <div class="sub-value"><span>无效攻击</span>{{this.invalidCount}} 次</div>
+                    <div class="totle-value"><span>{{this.$store.getters.getReportCount.dayCount}}</span>/日</div>
+                    <div class="sub-value"><span>有效攻击</span>{{this.$store.getters.getReportCount.validCount}} 次</div>
+                    <div class="sub-value"><span>无效攻击</span>{{this.$store.getters.getReportCount.invalidCount}} 次</div>
             </dv-border-box5>
         </div>
     </div>
 </template>
 
 <script>
-    import websocketController from "../store/controller";
-
+    // import websocketController from "../store/controller";
+    // import {mapGetters,mapActions} from 'vuex'
+    // import controller from '../store/controller'
     export default {
         name: "TopLeftCmp",
         data() {
             return {
-                reportCount: 0,
-                successReport: 0,
-                errCount: 0,
-                validCount: 0,
-                invalidCount: 0,
-                dayCount: 0,
+                reportdata:this.$store.getters.getReportCount
             }
         },
          mounted() {
-            this.getRes()
+            this.$store.dispatch("storeReportCount")
+            // controller()
+            // this.getRes()
             //     this.ws.onopen = () => {
             //         console.log("已建立连接");
             //     };
@@ -73,11 +71,11 @@
             // },
         },
 
-        methods:{
-            getRes() {
-                websocketController()
-            }
-        }
+        // methods:{
+        //     getRes() {
+        //         websocketController()
+        //     }
+        // }
     }
 </script>
 
@@ -128,9 +126,9 @@
             span {
                 font-size: 40px;
                 color: #00c0ff;
-                margin-right: 10px;
+                margin-right: 8px;
             }
-            margin-left: 15px;
+            margin-left: 47px;
         }
 
         .sub-value {

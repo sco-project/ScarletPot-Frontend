@@ -1,4 +1,4 @@
-import controller from '../controller'
+import controller from '../../websocket'
 
 const state = {
     data :{
@@ -13,24 +13,26 @@ const state = {
 
 const actions = {
     loadReportCount ({commit}) {
-        return new Promise((r,j) => {
-            try {
-                const {data} = controller("reportCount")
-                commit('storeData',data)
-                r(data)
-            } catch (e) {
-                j(e)
-            }
-        })
+        // return new Promise((r,j) => {
+        //     try {
+        //         const {data} = controller("reportCount")
+        //         commit('storeData',data)
+        //         r(data)
+        //     } catch (e) {
+        //         j(e)
+        //     }
+        // })
+        const data = controller("reportCount");
+        commit('storeReportCount',data)
     },
-    setReportCount ({ commit }, count) {
-        commit('storeData',count)
-    }
+    // setReportCount ({ commit }, count) {
+    //     commit('storeReportCount',count)
+    // }
 }
 
 const mutations = {
-    storeData(state, count) {
-        state.data = count
+    storeReportCount(state, count) {
+        state.data = count;
     },
 }
 
