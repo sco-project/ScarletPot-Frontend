@@ -7,68 +7,40 @@
 
 
 <script>
+    import {mapGetters, mapState, mapActions} from "vuex";
+
     export default {
         name: "BottomLeft1",
         data() {
             return {
-                // ssh: 0,
-                // mysql: 0,
-                // proxyCount: 0,
-                // web: 0,
-                // redis: 0,
-                // telnet: 0,
-                // memcache:0,
-                // ftp: 0,
-
                 config:{
                     data : [
-                        // {
-                        //     name: 'SSH',
-                        //     value: this.ssh
-                        // },
-                        // {
-                        //     name: 'MySQL',
-                        //     value: this.mysql
-                        // },
-                        // {
-                        //     name: 'Proxy',
-                        //     value: this.proxyCount
-                        // },
-                        // {
-                        //     name: 'Web',
-                        //     value: this.web
-                        // },
-                        // {
-                        //     name: 'Redis',
-                        //     value: this.redis
-                        // },
-                        // {
-                        //     name: 'Telnet',
-                        //     value: this.telnet
-                        // },
-                        // {
-                        //     name: "MemCache",
-                        //     value: this.memcache
-                        // },
-                        // {
-                        //     name: "FTP",
-                        //     value: this.ftp
-                        // },
-                        // {
-                        //     name: "FTP",
-                        //     value: this.ftp
-                        // },
+                        {
+                            name: 'SSH',
+                            value: 0
+                        },
+
                     ]
                 }
             }
         },
+
+        computed:{
+            ...mapActions(["storeServiceCount"]),
+            ...mapState({
+                serviceCount: state => state.service
+            }),
+            ...mapGetters([
+                'getServicesCount'
+            ]),
+        },
+
         mounted() {
-            // this.ws.onmessage = (evt) => {
-                // var res = JSON.parse(evt.data);
-                // console.log(res);
-                // this.proxy = res.service.proxy;
-                // console.log(this.config.data[0].value)
-            // };
+            this.controller.ws.onmessage = (evt) => {
+                var resData = JSON.parse(evt.data);
+                this.config.data.value = resData.service.proxy
+                console.log(this.config.data.value)
+            };
         }
     }
 </script>

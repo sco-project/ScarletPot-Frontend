@@ -6,11 +6,17 @@
 
 <script>
   import ReconnectingWebSocket from 'reconnecting-websocket'
+  // import { mapActions } from 'vuex'
   export default {
     name: 'app',
     created() {
       this.initWs()
+      // this.$store.dispatch("storeServiceCount")
+      // this.$store.dispatch("storeReportCount")
     },
+    // computed:{
+    //   ...mapActions(["storeServiceCount","storeReportCount"]),
+    // },
     methods:{
       initWs() {
         let that = this;
@@ -24,7 +30,7 @@
           // 关闭 websocket
           console.log("连接已关闭...");
           setTimeout(() => {
-            that.localSocket();
+            that.controller();
           }, 2000);
         };
       }

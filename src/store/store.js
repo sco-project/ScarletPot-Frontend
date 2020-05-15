@@ -8,19 +8,7 @@ import Vuex from 'vuex'
 // import map from './modules/map';
 // import getters from './getters'
 import controller from '../websocket'
-
 Vue.use(Vuex);
-
-// const store = new Vuex.Store({
-//     modules: {
-//         report,
-//         service,
-//         list,
-//         map,
-//     },
-//     getters
-// });
-
 export default new Vuex.Store({
     state:{
         data:0,
@@ -56,12 +44,18 @@ export default new Vuex.Store({
         storeReportCount(context) {
             controller.ws.onmessage = (evt) => {
                var resData = JSON.parse(evt.data);
-               console.log(resData.data.reportCount)
+               // console.log(resData.data.reportCount)
                 context.commit('setReportCount',resData.data)
-                context.commit('setServicesCount',resData.service)
-                context.commit('setStatus',resData.status)
+                // context.commit('setServicesCount',resData.service)
+                // context.commit('setStatus',resData.status)
             };
 
+        },
+        storeServiceCount(context) {
+            controller.ws.onmessage = (evt) => {
+                var resData = JSON.parse(evt.data);
+                context.commit('setServicesCount',resData.service)
+            };
         }
     }
 
