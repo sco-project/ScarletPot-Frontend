@@ -11,12 +11,8 @@
     name: 'app',
     created() {
       this.initWs()
-      // this.$store.dispatch("storeServiceCount")
-      // this.$store.dispatch("storeReportCount")
     },
-    // computed:{
-    //   ...mapActions(["storeServiceCount","storeReportCount"]),
-    // },
+
     methods:{
       initWs() {
         let that = this;

@@ -10,7 +10,7 @@
                 </div>
                 <div class="mh-right">
                     <dv-border-box-2 style="width: 120px; height: 50px; line-height: 50px; text-align:center;margin-left:200px;">
-                        控制台
+                        <a href="http://127.0.0.1:8080" style="text-decoration: none;color: rgb(255,255,255)" >控制台</a>
                     </dv-border-box-2>
                 </div>
             </div>

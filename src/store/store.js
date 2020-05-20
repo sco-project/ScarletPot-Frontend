@@ -8,24 +8,28 @@ import Vuex from 'vuex'
 // import map from './modules/map';
 // import getters from './getters'
 import controller from '../websocket'
+
+// import ReconnectingWebSocket from "reconnecting-websocket";
 Vue.use(Vuex);
+
 export default new Vuex.Store({
     state:{
         data:0,
         service:0,
         status:0,
+        websocket: null
     },
 
     getters :{
-      getReportCount(state) {
+        getReportCount(state) {
           return state.data
-      },
+        },
         getServicesCount(state) {
             return state.service
         },
         getStatus(state) {
           return state.status
-        }
+        },
     },
 
     mutations :{
@@ -37,7 +41,8 @@ export default new Vuex.Store({
         },
         setStatus(state,status) {
             state.status = status
-        }
+        },
+
     },
 
     actions: {

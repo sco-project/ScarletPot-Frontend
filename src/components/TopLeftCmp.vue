@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import {mapState, mapGetters, mapActions} from 'vuex';
+    import {mapState, mapGetters,mapActions} from 'vuex';
     export default {
         name: "TopLeftCmp",
         data() {
@@ -42,11 +42,13 @@
             ...mapState({
                 reportCount: state => state.data
             }),
+
             ...mapGetters([
                 'getReportCount'
             ])
         },
          mounted() {
+             this.$store.dispatch("storeReportCount")
         },
     }
 </script>

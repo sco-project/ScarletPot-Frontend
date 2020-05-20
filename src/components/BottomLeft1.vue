@@ -7,7 +7,7 @@
 
 
 <script>
-    import {mapGetters, mapState, mapActions} from "vuex";
+    // import {mapGetters, mapState, mapActions} from "vuex";
 
     export default {
         name: "BottomLeft1",
@@ -17,7 +17,27 @@
                     data : [
                         {
                             name: 'SSH',
-                            value: 0
+                            value: 110
+                        },
+                        {
+                            name: 'Mysql',
+                            value: 210
+                        },
+                        {
+                            name: 'Proxy',
+                            value: 30
+                        },
+                        {
+                            name: 'Redis',
+                            value: 10
+                        },
+                        {
+                            name: 'Web',
+                            value: 330
+                        },
+                        {
+                            name: 'Telnet',
+                            value: 40
                         },
 
                     ]
@@ -25,22 +45,15 @@
             }
         },
 
-        computed:{
-            ...mapActions(["storeServiceCount"]),
-            ...mapState({
-                serviceCount: state => state.service
-            }),
-            ...mapGetters([
-                'getServicesCount'
-            ]),
-        },
 
         mounted() {
-            this.controller.ws.onmessage = (evt) => {
-                var resData = JSON.parse(evt.data);
-                this.config.data.value = resData.service.proxy
-                console.log(this.config.data.value)
-            };
+            // this.controller.ws.onmessage = (evt) => {
+                // var resData = JSON.parse(evt.data);
+                // console.log(resData)
+                // this.config.data[0].value = resData.service.proxy
+                // this.config.data[0].push(resData.service)
+                // console.log(this.config.data[0].name)
+            // };
         }
     }
 </script>
